@@ -1,11 +1,20 @@
 const express = require('express');
 const { connection }= require('./db.js')
+const cors = require('cors');
+const testRouter = require('./routes/testRoute.js');
+
+
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+
+const PORT =  8000;
 
 const app = express();
 app.use(express.json());
+app.use(cors())
+
+
+app.use('/api/test', testRouter);
 
 app.get("/", (req,res)=>{
     res.send("Api is running successfully")
