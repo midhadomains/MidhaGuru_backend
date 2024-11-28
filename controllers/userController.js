@@ -19,7 +19,9 @@ const loginUser = async(req,res)=>{
         const isMatch = await bcryptjs.compare(password,user.password);
         if(isMatch){
             const token = createToken(user._id);
-            res.json({success:true, token, profilePicture: user.profilePicture});
+            res.json({success:true, token, profilePicture: user.profilePicture, message: "You are now logged in"});
+        }else{
+            res.json({success: false, message: 'Incorrect Password'})
         }
     }catch(err){
         console.log(err);
@@ -31,7 +33,7 @@ const loginUser = async(req,res)=>{
 const registerUser = async(req,res)=>{
     try{
         const {name,email,password,profilePicture} = req.body
-        const exists = await userModel.find({email});
+        const exists = await userModel.findOne({email});
         if(exists){
             return res.json({success:false, message:'User already exists'})
         }
@@ -52,7 +54,7 @@ const registerUser = async(req,res)=>{
         })
         const user = await newUser.save();
         const token = createToken(user._id)
-        res.json({success:true, token, profilePicture: user.profilePicture})
+        res.json({success:true, token, profilePicture: user.profilePicture, message: "You are successfully registered"})
     }catch(e){
         console.log(e);
         res.json({success:false, message: e.message})

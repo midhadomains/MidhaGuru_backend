@@ -11,7 +11,8 @@ const adminAuth =(req,res,next)=>{
         next()
     }catch(e){
         console.log(e);
-        res.json({success:false,message:e.message})
+        res.json({success:false,message:e.message}) 
     }
 }
 
+module.exports = adminAuth
