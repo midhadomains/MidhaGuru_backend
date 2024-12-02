@@ -1,53 +1,67 @@
-const testModel = require("../models/testModel");
+const Board = require("../models/Board");
+const Class = require('../models/Class');
+const Subject = require('../models/Subject');
+const Chapter = require('../models/Chapter');
+const MockTest = require('../models/MockTest');
+const Question = require('../models/Question');
 
-
-// function for adding question
-const addQuestion = async(req,res)=>{
+const getBoards = async(req,res)=>{
     try{
-        const {subject, question, option} = req.body
-        const image1= req.files.image1 && req.files.image1[0]
-        const image2= req.files.image2 && req.files.image2[0]
+        const boards= await Board.find();
+        res.status(200).json(boards)
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
+}
 
-        const images = [image1,image2].filter((item)=>item!==undefined)
+const getClasses = async(req,res)=>{
+    try{
+        const classes = await Class.find({board: req.params.boardId});
+        res.status(200).json(classes)
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
+}
 
-        const testData = {
-            subject,
-            question,
-            option,
-            images
-        }
-        console.log(testData);
 
-        const questions = new testModel(testData)
-        await questions.save()
+const getSubjects = async(req,res)=>{
+    try{
+        const subjects = await Subject.find({class: req.params.classId});
+        res.status(200).json(subjects)
+    }catch(error){
+        res.status(500).json({error: error.message})
+    }
+}
 
-        res.json({success: true, message: "Question Added"})
+const getChapters = async(req,res)=>{
+    try{
+        const chapters = await Chapter.find({subject: req.params.subjectId})
+        res.status(200).json(chapters)
 
     }catch(error){
-        res.json({success:false,message:error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
-// function for list questions
-const questionLists=async(req,res)=>{
+const getMockTests = async(req,res)=>{
     try{
-        const questions = await testModel.find({});
-        res.json({success:true,questions})
+        const mockTests = await MockTest.find({chapter: req.params.chapterId})
+        res.status(200).json(mockTests)
+
     }catch(error){
-        console.log(error);
-        res.json({success:false,message:error.message})
+        res.status(500).json({error: error.message})
     }
 }
-// function for removing question
-const removeQuestion=async(req,res)=>{
+
+const getQuestions = async(req,res)=>{
     try{
-        await testModel.findByIdAndDelete(req.body.id)
-        res.json({success:true,message: 'Question Removed'})
-    }catch(e){
-        console.log(e.message);
-        res.json({success:false,message:e.message})
+        const questions = await Question.find({mockTest: req.params.mockTestId})
+        res.status(200).json(questions)
+
+    }catch(error){
+        res.status(500).json({error: error.message})
+
     }
 }
 
-
-module.exports={addQuestion,questionLists,removeQuestion};
+module.exports = { getBoards, getClasses, getSubjects, getChapters, getMockTests, getQuestions };

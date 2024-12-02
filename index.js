@@ -3,7 +3,7 @@ const { connection }= require('./db.js')
 const cors = require('cors');
 const testRouter = require('./routes/testRoute.js');
 const userRouter = require('./routes/userRoute.js');
-
+const adminRouter = require('./routes/adminRoute.js')
 
 require("dotenv").config();
 
@@ -16,6 +16,7 @@ app.use(cors())
 
 app.use('/api/user', userRouter)
 app.use('/api/test', testRouter);
+app.use('/api/admin', adminRouter)
 
 app.get("/", (req,res)=>{
     res.send("Api is running successfully")
