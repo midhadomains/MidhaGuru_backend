@@ -1,4 +1,4 @@
-const Subject = require("../models/test/Subject");
+const Subject = require("../models/test/subject");
 const Class = require("../models/test/class");
 
 // Get all subjects for a specific class
