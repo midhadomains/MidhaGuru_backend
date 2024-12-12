@@ -1,5 +1,5 @@
-const MockTest = require("../models/test/mocktest");
-const Chapter = require("../models/test/chapter");
+const MockTest = require("../models/test/Mocktest");
+const Chapter = require("../models/test/Chapter");
 
 // Get all mock tests for a specific chapter and level
 exports.getMockTestsByChapterAndLevel = async (req, res) => {

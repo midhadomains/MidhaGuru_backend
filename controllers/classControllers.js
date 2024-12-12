@@ -1,5 +1,5 @@
 const Class = require("../models/test/Class");
-const Board = require("../models/test/board");
+const Board = require("../models/test/Board");
 
 // Get all classes for a specific board
 exports.getClassesByBoard = async (req, res) => {

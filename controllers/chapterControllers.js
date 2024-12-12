@@ -1,4 +1,4 @@
-const Chapter = require("../models/test/chapter");
+const Chapter = require("../models/test/Chapter");
 
 // Get all chapters for a specific subject
 exports.getChaptersBySubject = async (req, res) => {

@@ -1,4 +1,4 @@
-const Board = require("../models/test/board");
+const Board = require("../models/test/Board");
 
 
 exports.getAllBoards = async (req, res) => {
