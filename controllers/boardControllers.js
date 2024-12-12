@@ -1,10 +1,9 @@
-const board = require("../models/test/board");
-
+const Board = require("../models/test/board");
 
 
 exports.getAllBoards = async (req, res) => {
   try {
-    const boards = await board.find();
+    const boards = await Board.find();
     res.status(200).json(boards);
   } catch (error) {
     res.status(500).json({ message: error.message });
