@@ -1,26 +1,35 @@
 const express = require('express');
-const { connection }= require('./db.js')
-const cors = require('cors');
-const testRouter = require('./routes/testRoute.js');
-const userRouter = require('./routes/userRoute.js');
-const adminRouter = require('./routes/adminRoute.js')
+const cors = require("cors");
+const { connection }= require('./db.js');
+const { testRouter } = require('./routes/test.routes.js');
+const { userRouter } = require('./routes/user.routes.js');
+const boardRouter = require('./routes/boardRoutes.js');
+const classRouter = require('./routes/classRoutes.js');
+const subjectRouter = require('./routes/subjectRoutes.js');
+const chapterRouter = require('./routes/chapterRoutes.js');
+const mockTestRouter = require('./routes/mocktestRoutes.js');
+//const serverless = require("serverless-http");
 
 require("dotenv").config();
 
-
-const PORT =  8000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(express.json());
-app.use(cors())
-
-app.use('/api/user', userRouter)
-app.use('/api/test', testRouter);
-app.use('/api/admin', adminRouter)
+app.use(cors());
 
 app.get("/", (req,res)=>{
-    res.send("Api is running successfully")
+    res.send("Api is running successfully");
 })
+
+app.use("/test", testRouter );
+app.use("/user", userRouter );
+app.use("/api/boards", boardRouter);
+app.use("/api/classes", classRouter);
+app.use("/api/subjects", subjectRouter);
+app.use("/api/chapters", chapterRouter);
+app.use("/api/mocktests", mockTestRouter);
+
 
 
 app.listen(PORT,async()=>{
@@ -29,7 +38,10 @@ app.listen(PORT,async()=>{
         console.log("DB is connected");
         console.log(`Server is running on http://localhost:${PORT}`);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-   
-})
+});
+
+// module.exports.handler=serverless(app);
+
+//
