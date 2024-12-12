@@ -8,7 +8,7 @@ const classRouter = require('./routes/classRoutes.js');
 const subjectRouter = require('./routes/subjectRoutes.js');
 const chapterRouter = require('./routes/chapterRoutes.js');
 const mockTestRouter = require('./routes/mocktestRoutes.js');
-//const serverless = require("serverless-http");
+
 
 require("dotenv").config();
 
@@ -42,6 +42,3 @@ app.listen(PORT,async()=>{
     }
 });
 
-// module.exports.handler=serverless(app);
-
-//
