@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const MockTestSchema = new mongoose.Schema({
   level: { type: String, enum: ["easy", "medium", "difficult"], required: true },
-  chapter: { type: mongoose.Schema.Types.ObjectId, ref: "Chapter", required: true }, // References the Chapter
+  chapter: { type: mongoose.Schema.Types.ObjectId, ref: "chapter", required: true }, // References the Chapter
   questions: [
     {
       question: { type: String, required: true },
@@ -12,5 +12,5 @@ const MockTestSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("MockTest", MockTestSchema);
+module.exports = mongoose.model("mockTest", MockTestSchema);
 
